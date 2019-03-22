@@ -1,7 +1,7 @@
 {
   "name": "pocnodeexpress02",
   "version": "1.0.0",
-  "description": "test",
+  "description": "Api que fornece os recursos do desafio-fullstack",
   "main": "index.js",
   "scripts": {
     "start": "node src/server.js ",

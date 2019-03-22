@@ -1,11 +1,12 @@
-DROP DATABASE IF EXISTS `desafio-fullstack`;
+-- DROP DATABASE IF EXISTS `desafio-fullstack`;
 
 CREATE DATABASE `desafio-fullstack`;
 
 USE `desafio-fullstack`;
 
-CREATE TABLE `usuario`(	
+CREATE TABLE IF NOT EXISTS  `usuario`(	
 	`id` int(11) NOT NULL AUTO_INCREMENT,    
+    `uuid` char(36) NOT NULL,
 	`nome` varchar(128) NOT NULL,    
 	`email` varchar (64) NOT NULL,    
 	`password_hash` varchar(255) NOT NULL,
@@ -13,39 +14,46 @@ CREATE TABLE `usuario`(
     `updated_at` datetime NOT NULL,
    
 	 PRIMARY KEY (`id`),     
-     UNIQUE KEY `email` (`email`)
+     UNIQUE KEY `email` (`email`),
+     UNIQUE KEY `uuid` (`uuid`)
 )ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE `sala`(	
+CREATE TABLE IF NOT EXISTS  `sala`(	
 	`id` int(11) NOT NULL AUTO_INCREMENT,    
+    `uuid` char(36) NOT NULL,
 	`nome` varchar(128) NOT NULL,    	
     `created_at` datetime NOT NULL,	
     `updated_at` datetime NOT NULL,
    
-	 PRIMARY KEY (`id`)          
+	 PRIMARY KEY (`id`),
+     UNIQUE KEY `uuid` (`uuid`)
 )ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE `professor`(	
+CREATE TABLE IF NOT EXISTS `professor`(	
 	`id` int(11) NOT NULL AUTO_INCREMENT,    
+    `uuid` char(36) NOT NULL,
 	`nome` varchar(128) NOT NULL,    	
     `created_at` datetime NOT NULL,	
     `updated_at` datetime NOT NULL,
    
-	 PRIMARY KEY (`id`)          
+	 PRIMARY KEY (`id`),
+     UNIQUE KEY `uuid` (`uuid`)
 )ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE `curso`(	
+CREATE TABLE IF NOT EXISTS `curso`(	
 	`id` int(11) NOT NULL AUTO_INCREMENT,    
+    `uuid` char(36) NOT NULL,
 	`nome` varchar(128) NOT NULL,    	    
 	`horario_inicio` time NOT NULL,
 	`horario_fim` time NOT NULL,
     `created_at` datetime NOT NULL,	
     `updated_at` datetime NOT NULL,
    
-	 PRIMARY KEY (`id`)          
+	 PRIMARY KEY (`id`),
+     UNIQUE KEY `uuid` (`uuid`)
 )ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE `curso_sala`(	
+CREATE TABLE IF NOT EXISTS `curso_sala`(	
     `curso_id` int(11) NOT NULL,
     `sala_id` int(11) NOT NULL, 	
     `created_at` datetime NOT NULL,	
@@ -57,7 +65,7 @@ CREATE TABLE `curso_sala`(
 	CONSTRAINT `FK_curso_sala_sala` FOREIGN KEY (`sala_id`) REFERENCES `sala` (`id`)
 )ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE `curso_professor`(	
+CREATE TABLE IF NOT EXISTS `curso_professor`(	
     `curso_id` int(10) NOT NULL,
 	`professor_id` int(10) NOT NULL,
 	`created_at` timestamp NULL DEFAULT NULL,

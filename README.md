@@ -27,3 +27,11 @@
 1. Fidelidade às instruções e ao cenário.
 2. Clean Code e boas práticas.
 3. Boas práticas de versionamento.
+
+
+_________________
+
+### Dados de acesso para API
+
+**E-mail**: `coordenador@celsolisboa.com`
+**password**: `c5l50_D3s4f10`

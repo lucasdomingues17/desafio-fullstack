@@ -10,7 +10,7 @@ class AutenticacaoController {
         try {
             const resultService = await AutenticacaoService.autenticar(email, password);
 
-            if (resultService.isValid()) {
+            if (resultService.isValid() && resultService.content) {
                 return res.status(200).json({
                     usuario: resultService.content,
                     token: resultService.content.generateToken()

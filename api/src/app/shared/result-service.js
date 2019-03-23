@@ -9,7 +9,9 @@ class ResultService {
     }
 
     addError(mensagem) {
-        this.errors.push(mensagem);
+        this.errors.push({
+            message: mensagem
+        });
     }
 
     hasError() {
@@ -23,8 +25,6 @@ class ResultService {
 
         return this.errors;
     }
-
-
 }
 
 module.exports = ResultService;

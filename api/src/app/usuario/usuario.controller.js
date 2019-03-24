@@ -62,7 +62,7 @@ class UsuarioController {
             const resultService = await UsuarioService.cadastrar(req.body);
 
             if (resultService.isValid() && resultService.content) {
-                return res.status(200).json(
+                return res.status(201).json(
                     resultService.content,
                 );
             } else if (resultService.hasError()) {

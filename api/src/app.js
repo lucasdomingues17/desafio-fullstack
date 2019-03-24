@@ -10,11 +10,14 @@ const fs = require('fs');
 const glob = require('glob');
 
 const express = require('express');
+const compression = require('compression');
 
 class AppController {
 
     constructor() {
         this.express = express();
+
+        this.express.use(compression());
 
         this.middlewares();
         this.routes();

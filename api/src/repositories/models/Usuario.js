@@ -1,5 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const uuidv4 = require('uuid/v4');
 
 module.exports = (sequelize, DataTypes) => {
     const Usuario = sequelize.define("Usuario", {
@@ -19,6 +20,8 @@ module.exports = (sequelize, DataTypes) => {
                 if (usuario.password) {
                     usuario.password_hash = await bcrypt.hash(usuario.password, 8);
                 }
+
+                usuario.uuid = uuidv4();
             }
         }
     });

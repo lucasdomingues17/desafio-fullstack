@@ -1,9 +1,12 @@
 const ProfessorService = require('./professor.service');
+const BadRequestError = require('../shared/erros/BadRequestError');
+const InternalServerError = require('../shared/erros/InternalServerError');
+const NotFoundError = require('../shared/erros/NotFoundError');
 
 class ProfessorController {
     async listar(req, res) {
         try {
-            const resultService = await ProfessorService.listar();
+            const resultService = await new ProfessorService().listar();
 
             if (resultService.isValid() && resultService.content) {
                 return res.status(200).json(
@@ -14,16 +17,12 @@ class ProfessorController {
                     resultService.getError()
                 );
             } else {
-                return res.status(404).json({
-                    message: "Não foi possível listar os professores."
-                });
+                return res.status(404).json(new NotFoundError("Não foi possível listar os professores."));
             }
 
         } catch (ex) {
             console.error(ex);
-            return res.status(500).json({
-                message: "Ocorreu um erro inesperado, tente novamente mais tarde!"
-            });
+            return res.status(500).json(new InternalServerError(ex));
         }
     }
 
@@ -33,7 +32,7 @@ class ProfessorController {
         } = req.params;
 
         try {
-            const resultService = await ProfessorService.buscarPorId(id);
+            const resultService = await new ProfessorService().buscarPorId(id);
 
             if (resultService.isValid() && resultService.content) {
                 return res.status(200).json(
@@ -44,22 +43,18 @@ class ProfessorController {
                     resultService.getError()
                 );
             } else {
-                return res.status(404).json({
-                    message: "Não foi possível encontrar o professor."
-                });
+                return res.status(404).json(new NotFoundError("Não foi possível encontrar o professor."));
             }
 
         } catch (ex) {
             console.error(ex);
-            return res.status(500).json({
-                message: "Ocorreu um erro inesperado, tente novamente mais tarde!"
-            });
+            return res.status(500).json(new InternalServerError(ex));
         }
     }
 
     async cadastrar(req, res) {
         try {
-            const resultService = await ProfessorService.cadastrar(req.body);
+            const resultService = await new ProfessorService().cadastrar(req.body);
 
             if (resultService.isValid() && resultService.content) {
                 return res.status(201).json(
@@ -70,16 +65,12 @@ class ProfessorController {
                     resultService.getError()
                 );
             } else {
-                return res.status(400).json({
-                    message: "Não foi possível cadastrar o professor."
-                });
+                return res.status(400).json(new BadRequestError("Não foi possível cadastrar o professor."));
             }
 
         } catch (ex) {
             console.error(ex);
-            return res.status(500).json({
-                message: "Ocorreu um erro inesperado, tente novamente mais tarde!"
-            });
+            return res.status(500).json(new InternalServerError(ex));
         }
     }
 
@@ -89,7 +80,7 @@ class ProfessorController {
         } = req.params;
 
         try {
-            const resultService = await ProfessorService.atualizar(id, req.body);
+            const resultService = await new ProfessorService().atualizar(id, req.body);
 
             if (resultService.isValid() && resultService.content) {
                 return res.status(200).json(
@@ -100,16 +91,12 @@ class ProfessorController {
                     resultService.getError()
                 );
             } else {
-                return res.status(400).json({
-                    message: "Não foi possível cadastrar o professor."
-                });
+                return res.status(400).json(new BadRequestError("Não foi possível atualizar o professor."));
             }
 
         } catch (ex) {
             console.error(ex);
-            return res.status(500).json({
-                message: "Ocorreu um erro inesperado, tente novamente mais tarde!"
-            });
+            return res.status(500).json(new InternalServerError(ex));
         }
     }
 
@@ -119,7 +106,7 @@ class ProfessorController {
         } = req.params;
 
         try {
-            const resultService = await ProfessorService.apagar(id);
+            const resultService = await new ProfessorService().apagar(id);
 
             if (resultService.isValid() && resultService.content) {
                 return res.status(200).json(
@@ -130,16 +117,12 @@ class ProfessorController {
                     resultService.getError()
                 );
             } else {
-                return res.status(400).json({
-                    message: "Não foi possível apagar o professor"
-                });
+                return res.status(400).json(new BadRequestError("Não foi possível apagar o professor"));
             }
 
         } catch (ex) {
             console.error(ex);
-            return res.status(500).json({
-                message: "Ocorreu um erro inesperado, tente novamente mais tarde!"
-            });
+            return res.status(500).json(new InternalServerError(ex));
         }
     }
 }

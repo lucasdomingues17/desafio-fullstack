@@ -8,50 +8,42 @@ class UsuarioService extends BaseService {
     }
 
     async listar() {
-        super.begin();
-
         const usuarios = await UsuarioRepositoryService.listarTodos();
 
         if (Array.isArray(usuarios) && usuarios.length) {
             this.resultService.content = usuarios;
         } else {
-            this.resultService.addError("Nenhum usuário foi encontrado!");
+            this.resultService.addNotFoundError("Nenhum usuário foi encontrado!");
         }
 
         return this.resultService;
     }
 
     async buscarPorId(id) {
-        super.begin();
-
         const usuario = await UsuarioRepositoryService.buscarPorId(id);
 
         if (usuario) {
             this.resultService.content = usuario;
         } else {
-            this.resultService.addError("Usuário não encontrado!");
+            this.resultService.addNotFoundError("Usuário não encontrado!");
         }
 
         return this.resultService;
     }
 
     async buscarPorUuid(uuid) {
-        super.begin();
-
         const usuario = await UsuarioRepositoryService.buscarPorUuid(uuid);
 
         if (usuario) {
             this.resultService.content = usuario;
         } else {
-            this.resultService.addError("Usuário não encontrado!");
+            this.resultService.addNotFoundError("Usuário não encontrado!");
         }
 
         return this.resultService;
     }
 
     async cadastrar(usuarioViewModel) {
-        super.begin();
-
         const dadosParaCriacao = UsuarioFactory.obterDadosParaCriacao(usuarioViewModel);
         if (dadosParaCriacao) {
             const repositoryResult = await UsuarioRepositoryService.cadastrar(dadosParaCriacao);
@@ -59,15 +51,13 @@ class UsuarioService extends BaseService {
                 this.resultService.content = repositoryResult['dataValues'];
             }
         } else {
-            this.resultService.addError("Informe os dados do usuario!");
+            this.resultService.addBadRequestError("Informe os dados do usuario!");
         }
 
         return this.resultService;
     }
 
     async atualizar(id, usuarioViewModel) {
-        super.begin();
-
         const usuario = await UsuarioRepositoryService.buscarPorId(id);
         if (usuario) {
             const dadosParaAtualizacao = UsuarioFactory.obterDadosParaAtualizacao(usuario, usuarioViewModel);
@@ -83,15 +73,13 @@ class UsuarioService extends BaseService {
             }
 
         } else {
-            this.resultService.addError("Usuário não encontrado!");
+            this.resultService.addNotFoundError("Usuário não encontrado!");
         }
 
         return this.resultService;
     }
 
     async apagar(id) {
-        super.begin();
-
         const usuario = await UsuarioRepositoryService.buscarPorId(id);
         if (usuario) {
             const repositoryResult = await UsuarioRepositoryService.apagar(id);
@@ -99,11 +87,11 @@ class UsuarioService extends BaseService {
                 this.resultService.content = usuario;
             }
         } else {
-            this.resultService.addError("Usuário não encontrado!");
+            this.resultService.addNotFoundError("Usuário não encontrado!");
         }
 
         return this.resultService;
     }
 }
 
-module.exports = new UsuarioService();
+module.exports = UsuarioService;

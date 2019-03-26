@@ -1,9 +1,12 @@
 const SalaService = require('./sala.service');
+const BadRequestError = require('../shared/erros/BadRequestError');
+const InternalServerError = require('../shared/erros/InternalServerError');
+const NotFoundError = require('../shared/erros/NotFoundError');
 
 class SalaController {
     async listar(req, res) {
         try {
-            const resultService = await SalaService.listar();
+            const resultService = await new SalaService().listar();
 
             if (resultService.isValid() && resultService.content) {
                 return res.status(200).json(
@@ -14,16 +17,12 @@ class SalaController {
                     resultService.getError()
                 );
             } else {
-                return res.status(404).json({
-                    message: "Não foi possível listar os salas."
-                });
+                return res.status(404).json(new NotFoundError("Não foi possível listar os salas."));
             }
 
         } catch (ex) {
             console.error(ex);
-            return res.status(500).json({
-                message: "Ocorreu um erro inesperado, tente novamente mais tarde!"
-            });
+            return res.status(500).json(new InternalServerError(ex));
         }
     }
 
@@ -33,7 +32,7 @@ class SalaController {
         } = req.params;
 
         try {
-            const resultService = await SalaService.buscarPorId(id);
+            const resultService = await new SalaService().buscarPorId(id);
 
             if (resultService.isValid() && resultService.content) {
                 return res.status(200).json(
@@ -44,22 +43,18 @@ class SalaController {
                     resultService.getError()
                 );
             } else {
-                return res.status(404).json({
-                    message: "Não foi possível encontrar a sala."
-                });
+                return res.status(404).json(new NotFoundError("Não foi possível encontrar a sala."));
             }
 
         } catch (ex) {
             console.error(ex);
-            return res.status(500).json({
-                message: "Ocorreu um erro inesperado, tente novamente mais tarde!"
-            });
+            return res.status(500).json(new InternalServerError(ex));
         }
     }
 
     async cadastrar(req, res) {
         try {
-            const resultService = await SalaService.cadastrar(req.body);
+            const resultService = await new SalaService().cadastrar(req.body);
 
             if (resultService.isValid() && resultService.content) {
                 return res.status(201).json(
@@ -70,16 +65,12 @@ class SalaController {
                     resultService.getError()
                 );
             } else {
-                return res.status(400).json({
-                    message: "Não foi possível cadastrar a sala."
-                });
+                return res.status(400).json(new BadRequestError("Não foi possível cadastrar a sala."));
             }
 
         } catch (ex) {
             console.error(ex);
-            return res.status(500).json({
-                message: "Ocorreu um erro inesperado, tente novamente mais tarde!"
-            });
+            return res.status(500).json(new InternalServerError(ex));
         }
     }
 
@@ -89,7 +80,7 @@ class SalaController {
         } = req.params;
 
         try {
-            const resultService = await SalaService.atualizar(id, req.body);
+            const resultService = await new SalaService().atualizar(id, req.body);
 
             if (resultService.isValid() && resultService.content) {
                 return res.status(200).json(
@@ -100,16 +91,12 @@ class SalaController {
                     resultService.getError()
                 );
             } else {
-                return res.status(400).json({
-                    message: "Não foi possível cadastrar a sala."
-                });
+                return res.status(400).json(new BadRequestError("Não foi possível atualizar a sala."));
             }
 
         } catch (ex) {
             console.error(ex);
-            return res.status(500).json({
-                message: "Ocorreu um erro inesperado, tente novamente mais tarde!"
-            });
+            return res.status(500).json(new InternalServerError(ex));
         }
     }
 
@@ -119,7 +106,7 @@ class SalaController {
         } = req.params;
 
         try {
-            const resultService = await SalaService.apagar(id);
+            const resultService = await new SalaService().apagar(id);
 
             if (resultService.isValid() && resultService.content) {
                 return res.status(200).json(
@@ -130,16 +117,12 @@ class SalaController {
                     resultService.getError()
                 );
             } else {
-                return res.status(400).json({
-                    message: "Não foi possível apagar a sala."
-                });
+                return res.status(400).json(new BadRequestError("Não foi possível apagar a sala."));
             }
 
         } catch (ex) {
             console.error(ex);
-            return res.status(500).json({
-                message: "Ocorreu um erro inesperado, tente novamente mais tarde!"
-            });
+            return res.status(500).json(new InternalServerError(ex));
         }
     }
 }

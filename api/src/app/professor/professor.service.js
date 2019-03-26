@@ -8,50 +8,42 @@ class ProfessorService extends BaseService {
     }
 
     async listar() {
-        super.begin();
-
         const salas = await ProfessorRepositoryService.listarTodos();
 
         if (Array.isArray(salas) && salas.length) {
             this.resultService.content = salas;
         } else {
-            this.resultService.addError("Nenhum professor foi encontrado!");
+            this.resultService.addNotFoundError("Nenhum professor foi encontrado!");
         }
 
         return this.resultService;
     }
 
     async buscarPorId(id) {
-        super.begin();
-
         const professor = await ProfessorRepositoryService.buscarPorId(id);
 
         if (professor) {
             this.resultService.content = professor;
         } else {
-            this.resultService.addError("Professor não encontrado!");
+            this.resultService.addNotFoundError("Professor não encontrado!");
         }
 
         return this.resultService;
     }
 
     async buscarPorUuid(uuid) {
-        super.begin();
-
         const professor = await ProfessorRepositoryService.buscarPorUuid(uuid);
 
         if (professor) {
             this.resultService.content = professor;
         } else {
-            this.resultService.addError("Professor não encontrado!");
+            this.resultService.addNotFoundError("Professor não encontrado!");
         }
 
         return this.resultService;
     }
 
     async cadastrar(professorViewModel) {
-        super.begin();
-
         const dadosParaCriacao = ProfessorFactory.obterDadosParaCriacao(professorViewModel);
         if (dadosParaCriacao) {
             const repositoryResult = await ProfessorRepositoryService.cadastrar(dadosParaCriacao);
@@ -59,15 +51,13 @@ class ProfessorService extends BaseService {
                 this.resultService.content = repositoryResult['dataValues'];
             }
         } else {
-            this.resultService.addError("Informe os dados do professor!");
+            this.resultService.addBadRequestError("Informe os dados do professor!");
         }
 
         return this.resultService;
     }
 
     async atualizar(id, professorViewModel) {
-        super.begin();
-
         const professor = await ProfessorRepositoryService.buscarPorId(id);
         if (professor) {
             const dadosParaAtualizacao = ProfessorFactory.obterDadosParaAtualizacao(professor, professorViewModel);
@@ -83,15 +73,13 @@ class ProfessorService extends BaseService {
             }
 
         } else {
-            this.resultService.addError("Professor não encontrado!");
+            this.resultService.addNotFoundError("Professor não encontrado!");
         }
 
         return this.resultService;
     }
 
     async apagar(id) {
-        super.begin();
-
         const professor = await ProfessorRepositoryService.buscarPorId(id);
         if (professor) {
             const repositoryResult = await ProfessorRepositoryService.apagar(id);
@@ -99,11 +87,11 @@ class ProfessorService extends BaseService {
                 this.resultService.content = professor;
             }
         } else {
-            this.resultService.addError("Professor não encontrado!");
+            this.resultService.addNotFoundError("Professor não encontrado!");
         }
 
         return this.resultService;
     }
 }
 
-module.exports = new ProfessorService();
+module.exports = ProfessorService;

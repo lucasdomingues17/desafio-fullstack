@@ -20,7 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     Sala.associate = function (models) {
         Sala.belongsToMany(models.Curso, {
             through: 'curso_sala',
-            as: 'curso'
+            as: 'curso',
+            foreignKey: 'sala_id',
         });
     }
 

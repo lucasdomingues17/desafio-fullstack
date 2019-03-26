@@ -1,3 +1,7 @@
+const BadRequestError = require('./erros/BadRequestError');
+const InternalServerError = require('./erros/InternalServerError');
+const NotFoundError = require('./erros/NotFoundError');
+
 class ResultService {
     constructor() {
         this.content = null;
@@ -9,9 +13,18 @@ class ResultService {
     }
 
     addError(mensagem) {
-        this.errors.push({
-            message: mensagem
-        });
+        // this.errors.push({
+        //     message: mensagem
+        // });
+        this.errors.push(new Error(mensagem));
+    }
+
+    addBadRequestError(mensagem) {
+        this.errors.push(new BadRequestError(mensagem));
+    }
+
+    addNotFoundError(mensagem) {
+        this.errors.push(new NotFoundError(mensagem));
     }
 
     hasError() {

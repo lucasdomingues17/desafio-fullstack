@@ -24,10 +24,10 @@ class ProfessorService extends BaseService {
     async buscarPorId(id) {
         super.begin();
 
-        const usuario = await ProfessorRepositoryService.buscarPorId(id);
+        const professor = await ProfessorRepositoryService.buscarPorId(id);
 
-        if (usuario) {
-            this.resultService.content = usuario;
+        if (professor) {
+            this.resultService.content = professor;
         } else {
             this.resultService.addError("Professor não encontrado!");
         }
@@ -38,10 +38,10 @@ class ProfessorService extends BaseService {
     async buscarPorUuid(uuid) {
         super.begin();
 
-        const usuario = await ProfessorRepositoryService.buscarPorUuid(uuid);
+        const professor = await ProfessorRepositoryService.buscarPorUuid(uuid);
 
-        if (usuario) {
-            this.resultService.content = usuario;
+        if (professor) {
+            this.resultService.content = professor;
         } else {
             this.resultService.addError("Professor não encontrado!");
         }
@@ -49,10 +49,10 @@ class ProfessorService extends BaseService {
         return this.resultService;
     }
 
-    async cadastrar(usuarioViewModel) {
+    async cadastrar(professorViewModel) {
         super.begin();
 
-        const dadosParaCriacao = ProfessorFactory.obterDadosParaCriacao(usuarioViewModel);
+        const dadosParaCriacao = ProfessorFactory.obterDadosParaCriacao(professorViewModel);
         if (dadosParaCriacao) {
             const repositoryResult = await ProfessorRepositoryService.cadastrar(dadosParaCriacao);
             if (repositoryResult) {
@@ -65,21 +65,21 @@ class ProfessorService extends BaseService {
         return this.resultService;
     }
 
-    async atualizar(id, usuarioViewModel) {
+    async atualizar(id, professorViewModel) {
         super.begin();
 
-        const usuario = await ProfessorRepositoryService.buscarPorId(id);
-        if (usuario) {
-            const dadosParaAtualizacao = ProfessorFactory.obterDadosParaAtualizacao(usuario, usuarioViewModel);
+        const professor = await ProfessorRepositoryService.buscarPorId(id);
+        if (professor) {
+            const dadosParaAtualizacao = ProfessorFactory.obterDadosParaAtualizacao(professor, professorViewModel);
 
             if (dadosParaAtualizacao) {
                 const repositoryResult = await ProfessorRepositoryService.atualizar(id, dadosParaAtualizacao);
 
                 if (repositoryResult && Array.isArray(repositoryResult) && repositoryResult[0]) {
-                    this.resultService.content = usuario;
+                    this.resultService.content = professor;
                 }
             } else {
-                this.resultService.content = usuario;
+                this.resultService.content = professor;
             }
 
         } else {
@@ -92,11 +92,11 @@ class ProfessorService extends BaseService {
     async apagar(id) {
         super.begin();
 
-        const usuario = await ProfessorRepositoryService.buscarPorId(id);
-        if (usuario) {
+        const professor = await ProfessorRepositoryService.buscarPorId(id);
+        if (professor) {
             const repositoryResult = await ProfessorRepositoryService.apagar(id);
             if (repositoryResult) {
-                this.resultService.content = usuario;
+                this.resultService.content = professor;
             }
         } else {
             this.resultService.addError("Professor não encontrado!");

@@ -6,11 +6,11 @@ require('dotenv').config({
 })
 
 const fs = require('fs');
-
 const glob = require('glob');
-
 const express = require('express');
 const compression = require('compression');
+
+
 
 class AppController {
 
@@ -18,6 +18,7 @@ class AppController {
         this.express = express();
 
         this.express.use(compression());
+        this.express.disable('x-powered-by');
 
         this.middlewares();
         this.routes();

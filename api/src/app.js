@@ -9,7 +9,7 @@ const fs = require('fs');
 const glob = require('glob');
 const express = require('express');
 const compression = require('compression');
-
+const cors = require('cors');
 
 
 class AppController {
@@ -19,6 +19,7 @@ class AppController {
 
         this.express.use(compression());
         this.express.disable('x-powered-by');
+        this.express.use(cors());
 
         this.middlewares();
         this.routes();

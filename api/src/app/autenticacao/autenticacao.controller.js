@@ -1,5 +1,8 @@
 const AutenticacaoService = require("./autenticacao.service");
 
+const InternalServerError = require('../shared/erros/InternalServerError');
+const NotFoundError = require('../shared/erros/NotFoundError');
+
 class AutenticacaoController {
     async autenticar(req, res) {
         const {
@@ -8,7 +11,7 @@ class AutenticacaoController {
         } = req.body;
 
         try {
-            const resultService = await AutenticacaoService.autenticar(email, password);
+            const resultService = await new AutenticacaoService().autenticar(email, password);
 
             if (resultService.isValid() && resultService.content) {
                 return res.status(200).json({
@@ -20,15 +23,12 @@ class AutenticacaoController {
                     resultService.getError()
                 );
             } else {
-                return res.status(400).json(
-                    "Não foi possível realizar a autenticação, confira os dados informados!"
-                );
+                return res.status(404).json(new NotFoundError("Não foi possível realizar a autenticação, confira os dados informados!"));
             }
 
         } catch (ex) {
-            return res.status(500).json(
-                "Ocorreu um erro inesperado, tente novamente mais tarde!"
-            );
+            console.error(ex);
+            return res.status(500).json(new InternalServerError(ex));
         }
     }
 }

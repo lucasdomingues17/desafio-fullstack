@@ -1,0 +1,30 @@
+<div class="box-autenticacao">
+  <h1>Login</h1>
+
+  <form [formGroup]="loginForm" (ngSubmit)="realizarLogin()" id="form-login" class="form form-autenticacao">
+    <div *ngIf="erros">
+      <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngFor="let erro of erros">
+        {{ erro.mensagem }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input type="mail" class="form-control" id="inputEmail" name="email" placeholder="Email"
+        formControlName="email" />
+    </div>
+    <div class="form-group">
+      <input type="password" class="form-control" id="inputPassword" name="senha" placeholder="Senha"
+        formControlName="password">
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid || isLoading">
+      <span *ngIf="!isLoading">Acessar</span>
+      <span *ngIf="isLoading">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Carregando...
+      </span>
+    </button>
+  </form>
+</div>

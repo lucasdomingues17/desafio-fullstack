@@ -1,0 +1,15 @@
+.box-autenticacao {
+  max-width: 300px;
+  margin: 30px auto 0;
+  padding: 15px;
+  box-sizing: border-box;
+  text-align: center;
+
+  button[type='submit'] {
+    padding: 6px 30px;
+  }
+
+  .btn-primary:disabled {
+    opacity: 0.3;
+  }
+}

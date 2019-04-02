@@ -31,7 +31,6 @@ export class AutenticacaoService {
   ) {
     this.token = this.localStorage.get('accessToken');
     this.usuario = this.localStorage.getObject('usuario');
-
   }
 
   login(data) {

@@ -1,3 +1,42 @@
-<p>
-  cursos-lista works!
-</p>
+<div class="card card-page cursos">
+  <header class="card-header">
+    <h1 class="card-page-title">Cursos</h1>
+    <a class="btn btn-link" href="#">
+      <i class="material-icons">add</i>
+    </a>
+  </header>
+  <div class="card-body card-page-body">
+    <div class="d-flex justify-content-center wrap-spinner" *ngIf="carregando">
+      <span class="spinner-border spinner-border-loading text-primary" role="status">
+        <span class="sr-only">Carregando...</span>
+      </span>
+      <strong class="text-label">Carregando...</strong>
+    </div>
+
+    <div *ngIf="erros">
+      <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngFor="let erro of erros">
+        {{ erro.mensagem }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="wrap-list-result">
+      <div class="card item-result curso" *ngFor="let curso of cursos">
+        <div class="card-header">
+          <h5 class="card-title">{{ curso.nome }}</h5>
+          <button type="button" class="btn btn-link">
+            <i class="material-icons">delete_outline</i>
+          </button>
+
+        </div>
+        <div class="card-body text-secondary">
+          <p>{{ curso.professores | nome:'Prof.' }}</p>
+          <p class="info-sala">{{ curso.salas | nome:'Sala' }}</p>
+          <p class="info-horario">{{ curso.horario_inicio  }} às {{ curso.horario_fim }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

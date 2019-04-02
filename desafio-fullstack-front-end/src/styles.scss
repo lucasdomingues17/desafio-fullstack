@@ -1,1 +1,47 @@
-/* You can add global styles to this file, and also import other style files */
+.card-page {
+  border: 0;
+
+  .card-header {
+    display: flex;
+
+    .card-page-title {
+      text-align: center;
+      flex-grow: 1;
+    }
+  }
+
+  .card-page-body {
+    .wrap-spinner {
+      .spinner-border-loading {
+        margin-bottom: 30px;
+      }
+
+      .text-label {
+        margin-left: 10px;
+      }
+    }
+
+    .wrap-list-result {
+      display: flex;
+      flex-wrap: wrap;
+
+      .item-result {
+        margin-bottom: 30px;
+        width: 100%;
+
+        .card-header {
+          display: flex;
+
+          .card-title {
+            flex-grow: 1;
+          }
+        }
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+      }
+    }
+  }
+}

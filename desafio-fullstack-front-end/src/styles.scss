@@ -23,11 +23,19 @@
 
     .wrap-list-result {
       display: flex;
+      justify-content: space-between;
+      flex-direction: row;
       flex-wrap: wrap;
+      align-items: flex-start;
+
 
       .item-result {
         margin-bottom: 30px;
-        width: 100%;
+        flex-basis: 100%;
+		
+		&:hover{
+			text-decoration: none;
+		}
 
         .card-header {
           display: flex;

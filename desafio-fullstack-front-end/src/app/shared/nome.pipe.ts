@@ -11,11 +11,11 @@ export class NomePipe implements PipeTransform {
 
                 return v['nome'];
             });
+
             let nomes = listaNomes.join(', ');
 
             const n = nomes.lastIndexOf(',');
             nomes = nomes.slice(0, n) + nomes.slice(n).replace(', ', ' e ');
-            console.log('nome', nomes);
 
             return nomes || '-';
         }

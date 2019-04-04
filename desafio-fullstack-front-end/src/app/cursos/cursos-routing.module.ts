@@ -1,3 +1,4 @@
+import { CursosFormComponent } from './cursos-form/cursos-form.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -8,8 +9,27 @@ import { AuthGuardRouterService } from '../shared/auth-guard-router.service';
 const routes: Routes = [
   {
     path: '',
-    component: CursosListaComponent,
-    canActivate: [AuthGuardRouterService]
+    canActivate: [AuthGuardRouterService],
+    redirectTo: 'listar',
+    pathMatch: 'full'
+  },
+  {
+    path: '',
+    canActivate: [AuthGuardRouterService],
+    children: [
+      {
+        path: 'listar',
+        component: CursosListaComponent,
+      },
+	  {
+        path: 'cadastrar',
+        component: CursosFormComponent
+      },
+      {
+        path: ':Id/detalhe',
+        component: CursosFormComponent
+      }
+    ]
   }
 ];
 

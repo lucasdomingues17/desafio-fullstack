@@ -1,7 +1,7 @@
 <div class="card card-page cursos">
   <header class="card-header">
     <h1 class="card-page-title">Cursos</h1>
-    <a class="btn btn-link" href="#">
+    <a class="btn btn-link" target="_blank" [routerLink]="['/cursos', 'cadastrar']">
       <i class="material-icons">add</i>
     </a>
   </header>
@@ -23,7 +23,8 @@
     </div>
 
     <div class="wrap-list-result">
-      <div class="card item-result curso" *ngFor="let curso of cursos">
+      <a class="card item-result curso" *ngFor="let curso of cursos" target="_blank"
+        [routerLink]="['/cursos', curso.id, 'detalhe']">
         <div class="card-header">
           <h5 class="card-title">{{ curso.nome }}</h5>
           <button type="button" class="btn btn-link">
@@ -36,7 +37,7 @@
           <p class="info-sala">{{ curso.salas | nome:'Sala' }}</p>
           <p class="info-horario">{{ curso.horario_inicio  }} às {{ curso.horario_fim }}</p>
         </div>
-      </div>
+      </a>
     </div>
   </div>
 </div>

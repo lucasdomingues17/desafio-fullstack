@@ -1,3 +1,54 @@
-<p>
-  cursos-form works!
-</p>
+<div class="card card-page curso-detalhe">
+  <header class="card-header">
+    <h1 class="card-page-title">Detalhe do Curso</h1>
+  </header>
+
+  <div class="card-body card-page-body">
+    <div class="d-flex justify-content-center wrap-spinner" *ngIf="mensagemDeStatus">
+      <span class="spinner-border spinner-border-loading text-primary" role="status">
+        <span class="sr-only">{{ mensagemDeStatus }}</span>
+      </span>
+      <strong class="text-label">{{ mensagemDeStatus }}</strong>
+    </div>
+
+    <div *ngIf="mensagensDeErro">
+      <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngFor="let erro of mensagensDeErro">
+        {{ erro.mensagem }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+
+    <form [formGroup]="cursoForm" (ngSubmit)="salvar()" id="form-login" *ngIf="this.cursoForm">
+      <div class="form-group">
+        <input type="text" class="form-control" id="inputNome" name="nome" placeholder="Nome" formControlName="nome" />
+      </div>
+      <div class="form-group">
+        <select multiple formControlName="professores" class="form-control">
+          <option [ngValue]="professor.id" *ngFor="let professor of opcoesProfessores">{{ professor.nome }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <select multiple formControlName="salas" class="form-control">
+          <option [ngValue]="sala.id" *ngFor="let sala of opcoesSalas">{{ sala.nome }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <input type="time" class="form-control" id="inputHorarioInicio" name="horario_inicio" placeholder="Início"
+          formControlName="horario_inicio" />
+      </div>
+      <div class="form-group">
+        <input type="time" class="form-control" id="inputHorarioFim" name="horario_fim" placeholder="Fim"
+          formControlName="horario_fim" />
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="cursoForm.invalid || mensagemDeStatus">
+        <span *ngIf="!mensagemDeStatus">Salvar</span>
+        <span *ngIf="mensagemDeStatus">
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          {{ mensagemDeStatus }}
+        </span>
+      </button>      
+    </form>
+  </div>
+</div>

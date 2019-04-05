@@ -1,0 +1,22 @@
+.df-form{
+	.form-group{
+		&.form-group-horario-inicio,
+		&.form-group-horario-fim{
+			flex-basis: 49%;
+		}		
+		
+		@media screen and (min-width: 769px) {  
+			&.form-group-nome, 
+			&.form-group-professores,
+			&.form-group-salas						
+			{
+				flex-basis: 49%;    
+			}			
+			
+			&.form-group-horario-inicio,
+			&.form-group-horario-fim{
+				flex-basis: 24%;
+			}		
+		}
+	}
+}

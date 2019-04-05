@@ -1,4 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
 import { CursosService } from '../cursos.service';
 
 @Component({
@@ -12,7 +14,8 @@ export class CursosListaComponent implements OnInit, AfterViewInit {
   erros;
 
   constructor(
-    private cursosService: CursosService
+    private cursosService: CursosService,
+	private route: ActivatedRoute
   ) {
     this.cursos = [];
   }
@@ -28,6 +31,7 @@ export class CursosListaComponent implements OnInit, AfterViewInit {
   buscarCursos() {
     this.carregando = true;
     this.erros = null;
+	//console.log('this.route.snapshot', this.route.snapshot);
 
     this.cursosService.listar().subscribe(
       (response) => {

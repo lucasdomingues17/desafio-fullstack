@@ -17,8 +17,6 @@ export class Curso {
 
     map(data) {
         Object.keys(this).forEach(prop => {
-			console.log('prop', prop);
-			console.log('data[prop]', data[prop]);
             if (data[prop]) {
                 this[prop] = data[prop];
             }

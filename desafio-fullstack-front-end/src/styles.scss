@@ -2,12 +2,36 @@
   border: 0;
 
   .card-header {
-    display: flex;
+	position: relative;
 
     .card-page-title {
-      text-align: center;
-      flex-grow: 1;
+      text-align: center;    
+      margin: 0 25%;
+	  white-space: nowrap;
+	  text-overflow: ellipsis;
+	  outline: 0;
+	  overflow: hidden;
     }
+	
+	.btn-cadastrar{		
+		position: absolute;
+		top:15px;
+		right: 15px;
+			
+		.material-icons{
+			font-size: 30px;
+		}
+	}
+	
+	.btn-voltar{
+		position: absolute;
+		top:15px;
+		left: 15px;
+			
+		.material-icons{
+			font-size: 30px;
+		}
+	}
   }
 
   .card-page-body {
@@ -52,4 +76,44 @@
       }
     }
   }
+}
+
+.df-form{
+	max-width: 769px;
+	margin: 0 auto;
+	  display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: flex-start;
+	  
+	.form-group{
+		flex-basis: 100%;
+		position: relative;
+		
+		.form-control-multi-select{
+			max-height: 38px;
+			
+			&:focus, 
+			&:hover{
+				max-height: initial;
+				position: absolute; 
+				z-index: 1;				
+			}
+		}
+		
+		&:hover{
+			.form-control-multi-select{
+				max-height: initial;
+				position: absolute; 
+				z-index: 1;	
+			}
+		}
+		
+	}
+	
+	.form-actions{
+		margin: 0 auto;
+		display: inline-block;
+	}
 }

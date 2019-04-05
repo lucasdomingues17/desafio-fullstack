@@ -1,6 +1,9 @@
 <div class="card card-page curso-detalhe">
   <header class="card-header">
-    <h1 class="card-page-title">Detalhe do Curso</h1>
+	<a  class="btn btn-link btn-voltar" [routerLink]="['/cursos']">
+		<i class="material-icons">keyboard_backspace</i>
+	</a>
+    <h1 class="card-page-title" title="obterTituloPagina()">{{ obterTituloPagina() }}</h1>
   </header>
 
   <div class="card-body card-page-body">
@@ -20,35 +23,37 @@
       </div>
     </div>
 
-    <form [formGroup]="cursoForm" (ngSubmit)="salvar()" id="form-login" *ngIf="this.cursoForm">
-      <div class="form-group">
+    <form [formGroup]="cursoForm" (ngSubmit)="salvar()" id="form-login" *ngIf="this.cursoForm" class="form df-form">
+      <div class="form-group form-group-nome">
         <input type="text" class="form-control" id="inputNome" name="nome" placeholder="Nome" formControlName="nome" />
       </div>
-      <div class="form-group">
-        <select multiple formControlName="professores" class="form-control">
+      <div class="form-group form-group-professores">
+        <select multiple formControlName="professores" class="form-control form-control-multi-select">
           <option [ngValue]="professor.id" *ngFor="let professor of opcoesProfessores">{{ professor.nome }}</option>
         </select>
       </div>
-      <div class="form-group">
-        <select multiple formControlName="salas" class="form-control">
+      <div class="form-group form-group-salas">
+        <select multiple formControlName="salas" class="form-control form-control-multi-select">
           <option [ngValue]="sala.id" *ngFor="let sala of opcoesSalas">{{ sala.nome }}</option>
         </select>
       </div>
-      <div class="form-group">
+      <div class="form-group form-group-horario-inicio">
         <input type="time" class="form-control" id="inputHorarioInicio" name="horario_inicio" placeholder="Início"
           formControlName="horario_inicio" />
       </div>
-      <div class="form-group">
+      <div class="form-group form-group-horario-fim">
         <input type="time" class="form-control" id="inputHorarioFim" name="horario_fim" placeholder="Fim"
           formControlName="horario_fim" />
       </div>
-      <button type="submit" class="btn btn-primary" [disabled]="cursoForm.invalid || mensagemDeStatus">
-        <span *ngIf="!mensagemDeStatus">Salvar</span>
-        <span *ngIf="mensagemDeStatus">
-          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-          {{ mensagemDeStatus }}
-        </span>
-      </button>      
+	  <div class="form-actions">
+		  <button type="submit" class="btn btn-primary" [disabled]="cursoForm.invalid || mensagemDeStatus">
+			<span *ngIf="!mensagemDeStatus">Salvar</span>
+			<span *ngIf="mensagemDeStatus">
+			  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+			  {{ mensagemDeStatus }}
+			</span>
+		  </button>      
+	  </div>
     </form>
   </div>
 </div>

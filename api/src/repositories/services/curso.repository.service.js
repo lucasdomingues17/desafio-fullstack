@@ -80,7 +80,11 @@ class CursoRepositoryService {
             ...dadosCurso
         } = dadosParaAtualizacao;
 
-        const resultUpdateCurso = await Curso.update(dadosCurso);
+        const resultUpdateCurso = await Curso.update(dadosCurso, {
+            where: {
+                id: id
+            }
+        });
 
         if (professores && professores.length > 0) {
             resultUpdateCurso.setProfessores(professores);
@@ -90,11 +94,7 @@ class CursoRepositoryService {
             resultUpdateCurso.setSalas(professores);
         }
 
-        return await Curso.update(dadosParaAtualizacao, {
-            where: {
-                id: id
-            }
-        });
+        return resultUpdateCurso;
     }
 
     async apagar(id) {

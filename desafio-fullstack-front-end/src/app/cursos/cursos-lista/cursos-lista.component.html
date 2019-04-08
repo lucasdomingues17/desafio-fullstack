@@ -23,21 +23,42 @@
     </div>
 
     <div class="wrap-list-result">
-      <a class="card item-result curso" *ngFor="let curso of cursos" target="_blank"
-        [routerLink]="['/cursos', curso.id, 'detalhe']">
+      <div class="card item-result curso" *ngFor="let curso of cursos" >
         <div class="card-header">
-          <h5 class="card-title">{{ curso.nome }}</h5>
-          <button type="button" class="btn btn-link">
+          <h5 class="card-title">
+			<a  target="_blank" [routerLink]="['/cursos', curso.id, 'detalhe']">
+			{{ curso.nome }}
+			</a>
+		  </h5>
+          <button type="button" class="btn btn-link" (click)="abrirModalConfirmacaoApagar($event, curso)">
             <i class="material-icons">delete_outline</i>
           </button>
 
         </div>
-        <div class="card-body text-secondary">
+        <a class="card-body text-secondary" target="_blank"
+        [routerLink]="['/cursos', curso.id, 'detalhe']">
           <p>{{ curso.professores | nome:'Prof.' }}</p>
           <p class="info-sala">{{ curso.salas | nome:'Sala' }}</p>
           <p class="info-horario">{{ curso.horario_inicio  }} às {{ curso.horario_fim }}</p>
-        </div>
-      </a>
+        </a>
+      </div>
     </div>
-  </div>
+  </div>  
+
+  <ng-template #templateModalConfirmacaoApagar>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Atenção</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="fecharModalApagar()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body" *ngIf="cursoApagar">
+      <p>Tem certeza que deseja apagar o curso "{{ cursoApagar.nome }}"?</p>     
+	  <p>Esta ação não poderá ser desfeita!</p>
+    </div>
+	<div class="modal-footer">
+	 <button type="button" class="btn btn-default" (click)="fecharModalApagar()">Não</button>
+	 <button type="button" class="btn btn-primary" (click)="apagarCurso(cursoApagar)">Sim</button>
+	</div>
+  </ng-template>
 </div>

@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { ModalModule } from 'ngx-bootstrap/modal';
+
 import { LocalStorageService } from './local-storage.service';
 import { AuthGuardRouterService } from './auth-guard-router.service';
 import { NomePipe } from './nome.pipe';
 
+
 @NgModule({
     imports: [
-        CommonModule
+        CommonModule,
+        ModalModule.forRoot()
     ],
     declarations: [
         NomePipe
@@ -16,7 +21,8 @@ import { NomePipe } from './nome.pipe';
         AuthGuardRouterService
     ],
     exports: [
-        NomePipe
+        NomePipe,
+        ModalModule
     ]
 })
 export class SharedModule { }

@@ -1,3 +1,4 @@
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CursosListaComponent } from './cursos-lista/cursos-lista.component';
@@ -15,6 +16,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     SharedModule,
     CursosRoutingModule
   ],
-  providers: [CursosService],
+  providers: [
+    CursosService
+  ],
 })
 export class CursosModule { }

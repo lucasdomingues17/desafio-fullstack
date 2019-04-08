@@ -95,7 +95,7 @@ export class CursosService {
       );
   }
   
-  apagar(id, data) {
+  apagar(id) {
     return this.http.delete(`${environment.enderecoApi}cursos/${id}`)
       .pipe(
         catchError((error) => {

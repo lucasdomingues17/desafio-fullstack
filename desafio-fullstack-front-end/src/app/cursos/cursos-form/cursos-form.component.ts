@@ -21,7 +21,7 @@ export class CursosFormComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-	private router: Router,
+    private router: Router,
     private cursosService: CursosService,
     private formBuilder: FormBuilder
   ) {
@@ -39,29 +39,26 @@ export class CursosFormComponent implements OnInit {
       this.cursosService.obterOpcoesDeSalas()
     );
   }
-  
-  isCadastro(){
-	  return this.curso.id <= 0;
+
+  isCadastro() {
+    return this.curso.id <= 0;
   }
-  
-  obterTituloPagina(){
-	  if(this.isCadastro()){
-		  return "Cadastrar curso";
-	  }
-	  else{
-		 return "Detalhe do curso";
-	  }
+
+  obterTituloPagina() {
+    if (this.isCadastro()) {
+      return "Cadastrar curso";
+    }
+    else {
+      return "Detalhe do curso";
+    }
   }
 
   inicializarFormulario() {
     this.mensagemDeStatus = "Carregando...";
     this.carregarOpcoes().subscribe(
-      ([responseProfessores, responseSalas]) => {        
+      ([responseProfessores, responseSalas]) => {
         this.opcoesProfessores = responseProfessores;
         this.opcoesSalas = responseSalas;
-		
-		//this.router.navigate(['/cursos'], {state : {id: 32, nome: 'ldomingues'}});
-		//this.router.navigateByUrl('/cursos', { data: { entity: 'entity' } })
 
         this.cursoForm = this.formBuilder.group({
           nome: [null, [Validators.required]],
@@ -85,14 +82,14 @@ export class CursosFormComponent implements OnInit {
     if (id) {
       this.mensagemDeStatus = "Carregando informações sobre o curso...";
       this.cursosService.detalhe(id).subscribe(
-        (response: Curso) => {          
-          this.curso.map(response);          
+        (response: Curso) => {
+          this.curso.map(response);
           this.atualizarForm();
           this.mensagemDeStatus = null;
         },
         (error) => {
           console.error('error component', error);
-          this.mensagensDeErro = error;          
+          this.mensagensDeErro = error;
           this.mensagemDeStatus = null;
         }
       );
@@ -102,7 +99,7 @@ export class CursosFormComponent implements OnInit {
     }
   }
 
-  atualizarForm() {    
+  atualizarForm() {
     this.cursoForm.patchValue({
       id: this.curso.id,
       nome: this.curso.nome,
@@ -114,53 +111,52 @@ export class CursosFormComponent implements OnInit {
   }
 
   salvar() {
-	let dadosASeremEnviados = Object.assign({}, this.cursoForm.value);
-	
-	console.log('dadosASeremEnviados', dadosASeremEnviados);
-	
-	if(this.curso.id <= 0){
-		this.cadastrar(dadosASeremEnviados);
-	}else{
-		this.atualizar(dadosASeremEnviados);
-	}
+    let dadosASeremEnviados = Object.assign({}, this.cursoForm.value);
+
+    if (this.curso.id <= 0) {
+      this.cadastrar(dadosASeremEnviados);
+    } else {
+      this.atualizar(dadosASeremEnviados);
+    }
   }
-  
-  cadastrar(dadosASeremEnviados){
-	  this.mensagemDeStatus = "Enviando dados...";
-	  
-	  this.cursosService.cadastrar(dadosASeremEnviados).subscribe(
-		(response) => {
-			console.log('cadastrar response', response);
-			
-			this.mensagemDeStatus = null;
-			
-			
-		},
-		(error) => {
-			console.error('cadastrar error', error);
-			this.mensagensDeErro = error;      
-			this.mensagemDeStatus = null;
-			
-		}			
-	  );
-	  
+
+  cadastrar(dadosASeremEnviados) {
+    this.mensagemDeStatus = "Enviando dados...";
+
+    this.cursosService.cadastrar(dadosASeremEnviados).subscribe(
+      (response) => {
+        console.log('cadastrar response', response);
+
+        this.mensagemDeStatus = null;
+        this.router.navigateByUrl('/cursos', { state: { targetCursoId: response['id'] } });
+      },
+      (error) => {
+        console.error('cadastrar error', error);
+        this.mensagensDeErro = error;
+        this.mensagemDeStatus = null;
+
+      }
+    );
+
   }
-  
-  atualizar(dadosASeremEnviados){
-	  this.mensagemDeStatus = "Enviando dados...";
-	  
-	  this.cursosService.atualizar(this.curso.id, dadosASeremEnviados).subscribe(
-		(response) => {
-			console.log('atualizar response', response);
-			
-			this.mensagemDeStatus = null;
-		},
-		(error) => {
-			console.error('atualizar error', error);
-			this.mensagensDeErro = error;      
-			this.mensagemDeStatus = null;
-		}			
-	  );
+
+  atualizar(dadosASeremEnviados) {
+    this.mensagemDeStatus = "Enviando dados...";
+
+    this.cursosService.atualizar(this.curso.id, dadosASeremEnviados).subscribe(
+      (response) => {
+        console.log('atualizar response', response);
+
+        this.mensagemDeStatus = null;
+
+        this.router.navigateByUrl('/cursos', { state: { targetCursoId: response['id'] } });
+      },
+      (error) => {
+        console.error('atualizar error', error);
+        this.mensagensDeErro = error;
+        this.mensagemDeStatus = null;
+      }
+    );
   }
-	  
+
 }

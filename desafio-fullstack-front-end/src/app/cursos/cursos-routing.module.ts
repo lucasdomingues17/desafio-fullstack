@@ -20,6 +20,9 @@ const routes: Routes = [
       {
         path: 'listar',
         component: CursosListaComponent,
+		data: {
+			targetCursoId: 0
+		}
       },
 	  {
         path: 'cadastrar',

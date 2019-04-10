@@ -21,11 +21,11 @@
         </button>
       </div>
     </div>
-
+	
     <div class="wrap-list-result">
-      <div class="card item-result curso" *ngFor="let curso of cursos" >
+      <div class="card item-result curso" *ngFor="let curso of cursos" [ngClass]="{'in-focus' : (cursoInFocus === curso.id)}" [attr.id]="'curso-' + curso.id">
         <div class="card-header">
-          <h5 class="card-title">
+          <h5 class="card-title">		  
 			<a  target="_blank" [routerLink]="['/cursos', curso.id, 'detalhe']">
 			{{ curso.nome }}
 			</a>

@@ -61,8 +61,8 @@ CREATE TABLE IF NOT EXISTS `curso_sala`(
    
 	PRIMARY KEY (`curso_id`,`sala_id`),
     KEY `FK_curso_sala` (`sala_id`),
-	CONSTRAINT `FK_curso_sala_curso` FOREIGN KEY (`curso_id`) REFERENCES `curso` (`id`),
-	CONSTRAINT `FK_curso_sala_sala` FOREIGN KEY (`sala_id`) REFERENCES `sala` (`id`)
+	CONSTRAINT `FK_curso_sala_curso` FOREIGN KEY (`curso_id`) REFERENCES `curso` (`id`) ON DELETE CASCADE,
+	CONSTRAINT `FK_curso_sala_sala` FOREIGN KEY (`sala_id`) REFERENCES `sala` (`id`) 
 )ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `curso_professor`(	
@@ -72,8 +72,8 @@ CREATE TABLE IF NOT EXISTS `curso_professor`(
 	`updated_at` timestamp NULL DEFAULT NULL,
 	PRIMARY KEY (`curso_id`,`professor_id`),
 	KEY `FK_curso_professor` (`professor_id`),
-	CONSTRAINT `FK_curso_professor_curso` FOREIGN KEY (`curso_id`) REFERENCES `curso` (`id`),
-	CONSTRAINT `FK_curso_professor_professor` FOREIGN KEY (`professor_id`) REFERENCES `professor` (`id`)
+	CONSTRAINT `FK_curso_professor_curso` FOREIGN KEY (`curso_id`) REFERENCES `curso` (`id`) ON DELETE CASCADE,
+	CONSTRAINT `FK_curso_professor_professor` FOREIGN KEY (`professor_id`) REFERENCES `professor` (`id`) 
 )ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP USER IF EXISTS 'user_desafio_fullstack'@'localhost';
